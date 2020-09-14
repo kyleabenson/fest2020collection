@@ -1,0 +1,3 @@
+---
+# vars file for host_config
+admin_user: #MUST BE SAME AS USER FROM DEPLOYMENT PLAYBOOK

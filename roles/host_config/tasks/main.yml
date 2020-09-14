@@ -1,0 +1,55 @@
+---
+# tasks file for host_config
+- name: Install necessary packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - apache2
+    - git
+  become: yes  
+
+- name: Install hugo
+  snap:
+    name: hugo
+    state: present
+    channel: extended
+  become: yes  
+
+- name: Pull site from repo
+  git:
+    repo: 'https://github.com/kyleabenson/fest2020frontEnd.git'
+    dest: "/home/{{admin_user}}/fest2020frontEnd"
+
+- name: Add theme to hugo site
+  git:
+    repo: 'https://github.com/onweru/newsroom.git'
+    dest: "/home/{{admin_user}}/fest2020frontEnd/themes/newsroom"
+
+- name: Adjust config file for env
+  lineinfile:
+    path: "/home/{{admin_user}}/fest2020frontEnd/config.toml"
+    state: absent
+    regexp: '^baseurl'
+
+- name: Build site
+  command: hugo
+  args:
+    chdir: "/home/{{admin_user}}/fest2020frontEnd/"
+
+
+- name: Place static files
+  copy:
+    src: "/home/{{admin_user}}/fest2020frontEnd/public/"
+    dest: /var/www/html/
+    remote_src: yes
+    owner: root
+    group: root
+  become: yes
+
+- name: Enable apache2
+  service:
+    name: apache2
+    state: started
+    enabled: yes
+  become: yes

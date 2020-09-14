@@ -1,0 +1,51 @@
+---
+# tasks file for gcp_deploy
+
+- name: Create a static address
+  google.cloud.gcp_compute_address:
+    name: webinstance-address
+    region: "{{ gcp_region }}"
+    project: "{{ gcp_project }}"
+    auth_kind: "{{ gcp_cred_kind }}"
+    service_account_file: "{{ gcp_cred_file }}"
+    state: present
+  register: address
+
+- name: Create a host
+  google.cloud.gcp_compute_instance:
+    name: webinstance
+    machine_type: e2-micro
+    disks:
+    - auto_delete: 'true'
+      boot: 'true'
+      device_name: device1
+      initialize_params:
+        disk_size_gb: "{{ disk_size_gb }}"
+        source_image: "{{ gcp_source_image }}"
+    network_interfaces:
+    - access_configs:
+      - name: External NAT
+        nat_ip: "{{ address }}"
+        type: ONE_TO_ONE_NAT
+    metadata:
+      ssh-keys: "{{admin_user}}:{{ ssh_pub_key }}" 
+    zone: "{{ gcp_zone }}"
+    tags: 
+      items:
+        - https-server
+        - http-server
+    auth_kind: "{{ gcp_cred_kind }}"
+    project: "{{ gcp_project }}"
+    service_account_file: "{{ gcp_cred_file }}"
+    state: "{{ desired_state }}"
+
+- name: Add created system to inventory 
+  add_host:
+    name: "{{address.address}}"
+    groups: webservers
+    ansible_user: kyleabenson
+
+- name: Waiting 30 seconds before proceeding to next play...
+  wait_for:
+    timeout: 30
+  

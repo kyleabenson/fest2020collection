@@ -1,0 +1,14 @@
+---
+# tasks file for hugo_build
+- name: Pull down the most recent version of the project
+  git:
+    repo: 'https://github.com/kyleabenson/fest2020frontEnd.git'
+    dest: /srv/checkout
+
+- name: Build new hugo site
+  command: hugo
+  args: 
+    chdir: /srv/checkout
+
+- name: Deploy to previously build GCP space
+  command: hugo deploy --target=gcp

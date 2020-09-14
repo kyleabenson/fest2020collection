@@ -1,0 +1,16 @@
+---
+# vars file for gcp_deploy
+# bucket_name: bookimport
+admin_user: #MUST NOT BE EMPTY
+ssh_pub_key: #MUST NOT BE EMPTY
+disk_size_gb: 10
+desired_state: present #TODO, Add Absent Support
+
+#GCP Section
+gcp_project: fest2020-289112
+gcp_cred_kind: #MUST NOT BE EMPTY
+gcp_cred_file: #MUST NOT BE EMPTY
+gcp_source_image: "projects/ubuntu-os-cloud/global/images/ubuntu-2004-focal-v20200907"
+#gcp_source_image: "projects/rhel-cloud/global/images/rhel-8-v20200413"
+gcp_region: #MUST NOT BE EMPTY
+gcp_zone: #MUST NOT BE EMPTY
