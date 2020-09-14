@@ -7,7 +7,7 @@ disk_size_gb: 10
 desired_state: present #TODO, Add Absent Support
 
 #GCP Section
-gcp_project: fest2020-289112
+gcp_project: #MUST NOT BE EMPTY
 gcp_cred_kind: #MUST NOT BE EMPTY
 gcp_cred_file: #MUST NOT BE EMPTY
 gcp_source_image: "projects/ubuntu-os-cloud/global/images/ubuntu-2004-focal-v20200907"
