@@ -2,7 +2,7 @@
 
 This collection exists to offer a simple demo of calling a collection. It provides 2 roles that can be called sequentially for the purpose of creating a simple, static website that is hosted on a VM deployed to Google Cloud Platform. The roles are:
 - **gcp_deploy**: This deploys a simple compute instance to GCP before adding it to the runtime inventory
-- **host_config**: This prepares the system to host a static website built by the Hugo project, and then hosts it via a standard web server.
+- **host_config**: This prepares the system to host a [static website](https://github.com/kyleabenson/fest2020frontEnd) built by the [Hugo](https://gohugo.io/) project, and then hosts it via a standard web server.
 
 To use this collection it's recommended you setup a simple playbook to call the collections with the relevant variables and also include a requirements.yml file.
 
