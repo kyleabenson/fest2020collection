@@ -22,7 +22,6 @@ To use this collection it's recommended you setup a simple playbook to call the 
         gcp_project: festProject-2020
         gcp_cred_kind: serviceaccount
         gcp_cred_file: /path/to/my_cred_file.json
-        gcp_source_image: "projects/ubuntu-os-cloud/global/images/ubuntu-2004-focal-v20200907"yes
         gcp_region: us-east1
         gcp_zone: "{{ gcp_region }}-b"
 
