@@ -23,7 +23,9 @@ authors:
 ### OPTIONAL but strongly recommended
 
 # A short summary description of the collection
-description: your collection description
+description: A demo collection containing two roles for the explicit purpose of:
+- Deploying a simple compute instance to Google Cloud
+- Configuring that instance to host a static website built by hugo and then deployed to apache2.
 
 # Either a single license or a list of licenses for content inside of a collection. Ansible Galaxy currently only
 # accepts L(SPDX,https://spdx.org/licenses/) licenses. This key is mutually exclusive with 'license_file'
@@ -42,16 +44,16 @@ tags: []
 # collection label 'namespace.name'. The value is a version range
 # L(specifiers,https://python-semanticversion.readthedocs.io/en/latest/#requirement-specification). Multiple version
 # range specifiers can be set and are separated by ','
-dependencies: {}
+dependencies: {google.cloud}
 
 # The URL of the originating SCM repository
-repository: http://example.com/repository
+repository: https://github.com/kyleabenson/fest2020collection
 
 # The URL to any online docs
-documentation: http://docs.example.com
+documentation: https://github.com/kyleabenson/fest2020collection/blob/master/README.md
 
 # The URL to the homepage of the collection/project
-homepage: http://example.com
+#homepage: http://example.com
 
 # The URL to the collection issue tracker
-issues: http://example.com/issue/tracker
+issues: https://github.com/kyleabenson/fest2020collection/issues

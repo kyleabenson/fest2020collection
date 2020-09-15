@@ -1,25 +1,33 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+Deploy a simple compute instance to GCP for hosting purposes with a static and public IP addreess.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+* The `google.cloud` collection -- installable via `ansible-galaxy collection install google.cloud`
+* The Google Cloud command line utility, see [https://cloud.google.com/sdk](https://cloud.google.com/sdk) for details
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+All variables can be defined in `vars/main.yml` or overriden at the import of the role. ** ALL** of the below values must be defined.
 
-```bucket_name``` Is the name of the bucket and will default to `testbucket` if undefined
 
 ```gcp_project``` Is the name of previously created GCP project that must be available
 
 ```gcp_cred_kind``` Specifies what type of credential being used
 
 ```gcp_cred_file```Specifies what credential file to be use. The credentials must have appropriate permissions to modify all necessary objects in the tasks.
+
+```admin_user``` Specifies the name of the user you'd like to interact with the system
+
+```ssh_pub_key``` Specifies the public portion of an ssh-key that corresponds with the above user
+
+```gcp_region``` The region to deploy objects to
+
+```gcp_zone```  The region variable plus it's corresponding zone. Ex if region is us-east1 then zone is us-east1-b
 
 Dependencies
 ------------
@@ -29,11 +37,25 @@ A list of other roles hosted on Galaxy should go here, plus any details in regar
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```
+---
+- name: Deploy GCP instanace
+  hosts: localhost
+  collections:
+    - kyleabenson.fest2020collection
+  tasks:
+    - import_role:
+        name: gcp_deploy
+      vars:  
+        admin_user: kyleabenson
+        ssh_pub_key: "{{lookup('file', '~/.ssh/my_key.pub')}}"
+        gcp_project: festProject-2020
+        gcp_cred_kind: serviceaccount
+        gcp_cred_file: /path/to/my_cred_file.json
+        gcp_source_image: "projects/ubuntu-os-cloud/global/images/ubuntu-2004-focal-v20200907"yes
+        gcp_region: us-east1
+        gcp_zone: "{{ gcp_region }}-b"
+```
 
 License
 -------
