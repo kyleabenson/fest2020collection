@@ -23,9 +23,7 @@ authors:
 ### OPTIONAL but strongly recommended
 
 # A short summary description of the collection
-description: A demo collection containing two roles for the explicit purpose of:
-- Deploying a simple compute instance to Google Cloud
-- Configuring that instance to host a static website built by hugo and then deployed to apache2.
+description: A demo collection containing two roles for simple purpose of deploying a basic GCP compute intance and then hosting a webserver
 
 # Either a single license or a list of licenses for content inside of a collection. Ansible Galaxy currently only
 # accepts L(SPDX,https://spdx.org/licenses/) licenses. This key is mutually exclusive with 'license_file'

@@ -1,25 +1,35 @@
 ---
 # tasks file for host_config
 - name: Install necessary packages
-  package:
-    name: "{{ item }}"
+  yum:
+    name:
+      - golang
+      - git
+      - gcc-c++
+      - httpd
+      - libstdc++
     state: present
-  with_items:
-    - apache2
-    - git
-  become: yes  
+  become: yes
 
-- name: Install hugo
-  snap:
-    name: hugo
-    state: present
-    channel: extended
-  become: yes  
+
+- name: Download Hugo
+  get_url:
+    url: "https://github.com/gohugoio/hugo/releases/download/v{{hugo_version}}/{{hugo_tar_gz}}"
+    dest: "{{hugo_download_location}}"
+  become: yes
+
+- name: Extract Hugo
+  unarchive:
+    src: "{{hugo_download_location}}"
+    dest: /usr/local/bin/
+    remote_src: yes
+  become: yes
 
 - name: Pull site from repo
   git:
     repo: 'https://github.com/kyleabenson/fest2020frontEnd.git'
     dest: "/home/{{admin_user}}/fest2020frontEnd"
+    force: yes
 
 - name: Add theme to hugo site
   git:
@@ -47,9 +57,13 @@
     group: root
   become: yes
 
-- name: Enable apache2
+- name: Enable httpd
   service:
-    name: apache2
+    name: httpd
     state: started
     enabled: yes
+  become: yes
+
+- name: Fix secontexts 
+  command: restorecon -r /var/www/html/*
   become: yes

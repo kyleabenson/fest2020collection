@@ -10,7 +10,6 @@ desired_state: present #TODO, Add Absent Support
 gcp_project: #MUST NOT BE EMPTY
 gcp_cred_kind: #MUST NOT BE EMPTY
 gcp_cred_file: #MUST NOT BE EMPTY
-gcp_source_image: "projects/ubuntu-os-cloud/global/images/ubuntu-2004-focal-v20200907"
-#gcp_source_image: "projects/rhel-cloud/global/images/rhel-8-v20200413"
+gcp_source_image: "projects/rhel-cloud/global/images/rhel-8-v20200413"
 gcp_region: #MUST NOT BE EMPTY
 gcp_zone: #MUST NOT BE EMPTY
