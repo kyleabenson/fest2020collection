@@ -9,9 +9,9 @@ desired_state: present #TODO, Add Absent Support
 #GCP Section
 gcp_project: #MUST NOT BE EMPTY
 # gcp_cred_kind: SET IF GCP_AUTH_KIND ENV VAR UNSET
-gcp_cred_kind: '{{ lookup('env', 'GCP_AUTH_KIND') }}'
+gcp_cred_kind: "'{{ lookup('env', 'GCP_AUTH_KIND') }}'"
 # gcp_cred_file: SET IF GCP_SERVICE_ACCOUNT_FILE ENV VAR UNSET
-gcp_cred_file: '{{ lookup('env', 'GCP_SERVICE_ACCOUNT_FILE') }}'
+gcp_cred_file: "'{{ lookup('env', 'GCP_SERVICE_ACCOUNT_FILE') }}'"
 gcp_source_image: "projects/rhel-cloud/global/images/rhel-8-v20200413"
 gcp_region: #MUST NOT BE EMPTY
 gcp_zone: #MUST NOT BE EMPTY
