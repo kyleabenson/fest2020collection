@@ -43,7 +43,7 @@ tags: []
 # L(specifiers,https://python-semanticversion.readthedocs.io/en/latest/#requirement-specification). Multiple version
 # range specifiers can be set and are separated by ','
 dependencies:
-    google.cloud: ">=1.0.0"
+    google.cloud: ">=1.0.1"
 
 # The URL of the originating SCM repository
 repository: https://github.com/kyleabenson/fest2020collection

@@ -1,5 +1,10 @@
 ---
 # tasks file for gcp_deploy
+- name: Create an ssh key when no key is defined
+  openssh_keypair:
+    path: "/tmp/{{admin_user}}-key"
+  when: ssh_pub_key is undefined
+  register: tempkey
 
 - name: Create a static address
   google.cloud.gcp_compute_address:
@@ -13,7 +18,7 @@
 
 - name: Create a host
   google.cloud.gcp_compute_instance:
-    name: webinstance
+    name: "webinstance-{{ 60 | random }}"
     machine_type: e2-micro
     disks:
     - auto_delete: 'true'
@@ -28,7 +33,7 @@
         nat_ip: "{{ address }}"
         type: ONE_TO_ONE_NAT
     metadata:
-      ssh-keys: "{{admin_user}}:{{ ssh_pub_key }}" 
+      ssh-keys: "{{admin_user}}:{{ ssh_pub_key | default(tempkey.public_key) }}" 
     zone: "{{ gcp_zone }}"
     tags: 
       items:
@@ -44,8 +49,9 @@
     name: "{{address.address}}"
     groups: webservers
     ansible_user: kyleabenson
+    ansible_ssh_private_key_file: "/tmp/{{admin_user}}-key"
 
-- name: Waiting 30 seconds before proceeding to next play...
+- name: Waiting 30 seconds before proceeding...
   wait_for:
     timeout: 30
   

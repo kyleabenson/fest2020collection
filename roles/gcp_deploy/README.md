@@ -12,7 +12,7 @@ Requirements
 Role Variables
 --------------
 
-All variables can be defined in `vars/main.yml` or overriden at the import of the role. ** ALL** of the below values must be defined.
+All variables can be defined in `vars/main.yml` or overriden at the import of the role. **ALL** of the below values must be defined.
 
 
 ```gcp_project``` Is the name of previously created GCP project that must be available
@@ -23,11 +23,13 @@ All variables can be defined in `vars/main.yml` or overriden at the import of th
 
 ```admin_user``` Specifies the name of the user you'd like to interact with the system
 
-```ssh_pub_key``` Specifies the public portion of an ssh-key that corresponds with the above user
-
 ```gcp_region``` The region to deploy objects to
 
 ```gcp_zone```  The region variable plus it's corresponding zone. Ex if region is us-east1 then zone is us-east1-b
+
+**OPTIONAL VARIABLE**
+
+```ssh_pub_key``` Optional key that can be used to specify an existing key file if desired. Otherwise playbook will create one and add to temporary inventory or add to the AAP UI.
 
 Dependencies
 ------------
