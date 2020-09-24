@@ -42,11 +42,28 @@
     state: absent
     regexp: '^baseurl'
 
+- name: Retrieve text URL contents
+  uri:
+     url: "{{ book.text.url }}"
+     return_content: yes
+  register: booktext
+  when: book is defined
+
+- name: Retrieve book image
+  get_url:
+    url: "{{ book.image.url }} "
+    dest: "{{ book.image.file}}"
+  when: book is defined
+
+- name: Create new post template
+  template:
+    src: ../files/post_template.md.j2
+    dest: "{{ book.text.file }}"
+   
 - name: Build site
   command: hugo
   args:
     chdir: "/home/{{admin_user}}/fest2020frontEnd/"
-
 
 - name: Place static files
   copy:

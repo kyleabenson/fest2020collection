@@ -8,7 +8,7 @@
 
 - name: Create a static address
   google.cloud.gcp_compute_address:
-    name: "webinstance-{{ 100 | random }}"
+    name: "webinstance-{{ 8 | random }}"
     region: "{{ gcp_region }}"
     project: "{{ gcp_project }}"
     auth_kind: "{{ lookup('env', 'GCP_AUTH_KIND') | default( gcp_cred_kind, True) }}"

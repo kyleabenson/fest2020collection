@@ -1,0 +1,22 @@
+---
+title: {{ book_title }}
+date: 2019-10-29T10:07:47+06:00
+draft: false
+
+# post thumb
+image: ../images/{{ book_title |replace(' ','_')| lower()}}.jpg
+
+# meta description
+#description: "this is meta description"
+
+# taxonomies
+#categories: 
+#  - "Fiction"
+#  - "Detective"
+#tags:
+#  - "Conan Doyle"
+
+# post type
+type: "post"
+---
+{{ booktext.content }}

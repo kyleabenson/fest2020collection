@@ -1,3 +1,11 @@
 ---
 # vars file for host_config
 admin_user: #MUST BE SAME AS USER FROM DEPLOYMENT PLAYBOOK
+book_title: "Be Kind To One Another"
+book:
+    # text:
+    #     url: "http://gutenberg.org/cache/epub/63261/pg63261.txt"
+    #     file: "/home/{{admin_user}}/fest2020frontEnd/post/{{ book_title |replace(' ','_')| lower()}}.md"
+    # image:
+    #     url: "https://www.gutenberg.org/cache/epub/63261/pg63261.cover.medium.jpg"
+    #     file: "/home/{{admin_user}}/fest2020frontEnd/static/images/{{ book_title |replace(' ','_')| lower()}}.jpg"
