@@ -84,3 +84,12 @@
 - name: Fix secontexts 
   command: restorecon -r /var/www/html/*
   become: yes
+
+- name: Curl system ensure it's up
+  uri:
+    url: "http://{{inventory_hostname}}"
+    status_code: 200
+
+- debug:
+    msg: "Provisioning complete, when you're ready to deprovision please rerun the playbook with args -e 'desired_state=absent gcp_host={{inventory_hostname}} --tags=cleanup'"    
+  

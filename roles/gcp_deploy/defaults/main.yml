@@ -1,0 +1,3 @@
+---
+# defaults file for gcp_deploy
+gcp_host: "instance-{{ 100 | random }}"

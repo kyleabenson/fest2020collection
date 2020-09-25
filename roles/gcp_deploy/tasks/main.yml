@@ -8,17 +8,17 @@
 
 - name: Create a static address
   google.cloud.gcp_compute_address:
-    name: "webinstance-{{ 8 | random }}"
+    name: "{{ gcp_host }}-address"
     region: "{{ gcp_region }}"
     project: "{{ gcp_project }}"
     auth_kind: "{{ lookup('env', 'GCP_AUTH_KIND') | default( gcp_cred_kind, True) }}"
     service_account_file: "{{ lookup('env', 'GCP_SERVICE_ACCOUNT_FILE') | default( gcp_cred_kind, True) }}"
-    state: present
+    state: "{{ desired_state }}"
   register: address
 
 - name: Create a host
   google.cloud.gcp_compute_instance:
-    name: "{{ address.name }}-vm"
+    name: "{{ gcp_host }}"
     machine_type: e2-micro
     disks:
     - auto_delete: 'true'
@@ -43,15 +43,18 @@
     project: "{{ gcp_project }}"
     service_account_file: "{{ lookup('env', 'GCP_SERVICE_ACCOUNT_FILE') | default( gcp_cred_kind, True) }}"
     state: "{{ desired_state }}"
+  register: instance
 
 - name: Add created system to inventory 
   add_host:
-    name: "{{address.address}}"
+    name: "{{instance.name}}"
     groups: webservers
     ansible_user: kyleabenson
     ansible_ssh_private_key_file: "{{ ssh_pub_key | default( '/tmp/{{admin_user}}-key', True) }}"
+    ansible_host: "{{address.address}}"
+  when: desired_state == "present"
 
-- name: Waiting 30 seconds before proceeding...
+- name: Waiting for 30 seconds before proceeding...
   wait_for:
     timeout: 30
-  
+  when: desired_state == "present"
