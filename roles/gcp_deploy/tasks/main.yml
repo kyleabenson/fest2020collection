@@ -5,7 +5,9 @@
     path: "/tmp/{{admin_user}}-key"
   when: ssh_pub_key is undefined
   register: tempkey
-
+  tags:
+    - cleanup
+    
 - name: Create a static address
   google.cloud.gcp_compute_address:
     name: "{{ gcp_host }}-address"
