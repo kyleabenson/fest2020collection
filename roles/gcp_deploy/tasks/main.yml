@@ -15,6 +15,8 @@
     service_account_file: "{{ lookup('env', 'GCP_SERVICE_ACCOUNT_FILE') | default( gcp_cred_kind, True) }}"
     state: "{{ desired_state }}"
   register: address
+  tags:
+    - cleanup
 
 - name: Create a host
   google.cloud.gcp_compute_instance:
@@ -44,6 +46,8 @@
     service_account_file: "{{ lookup('env', 'GCP_SERVICE_ACCOUNT_FILE') | default( gcp_cred_kind, True) }}"
     state: "{{ desired_state }}"
   register: instance
+  tags:
+    - cleanup
 
 - name: Add created system to inventory 
   add_host:
