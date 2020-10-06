@@ -3,6 +3,7 @@
 - name: Create an ssh key when no key is defined
   openssh_keypair:
     path: "/tmp/{{admin_user}}-key"
+    comment: "{{ admin_user }}"
   when: ssh_pub_key is undefined
   register: tempkey
   tags:
@@ -10,7 +11,7 @@
     
 - name: Create a static address
   google.cloud.gcp_compute_address:
-    name: "{{ gcp_host }}-address"
+    name: "{{ gcp_host }}"
     region: "{{ gcp_region }}"
     project: "{{ gcp_project }}"
     auth_kind: "{{ lookup('env', 'GCP_AUTH_KIND') | default( gcp_cred_kind, True) }}"
@@ -22,7 +23,7 @@
 
 - name: Create a host
   google.cloud.gcp_compute_instance:
-    name: "{{ gcp_host }}"
+    name: "{{ address.name }}"
     machine_type: e2-micro
     disks:
     - auto_delete: 'true'

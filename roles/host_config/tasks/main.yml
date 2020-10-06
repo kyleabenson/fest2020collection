@@ -44,21 +44,21 @@
 
 - name: Retrieve text URL contents
   uri:
-     url: "{{ book.text.url }}"
+     url: "{{ book_text_url }}"
      return_content: yes
   register: booktext
-  when: book is defined
+  when: book_text_url is defined
 
 - name: Retrieve book image
   get_url:
-    url: "{{ book.image.url }} "
-    dest: "{{ book.image.file}}"
-  when: book is defined
+    url: "{{ book_image_url }} "
+    dest: "{{ book_image_file}}"
+  when: book_text_url is defined
 
 - name: Create new post template
   template:
-    src: ../files/post_template.md.j2
-    dest: "{{ book.text.file }}"
+    src: post_template.md.j2
+    dest: "{{ book_text_file }}"
    
 - name: Build site
   command: hugo

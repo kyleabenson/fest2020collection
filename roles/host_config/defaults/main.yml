@@ -3,3 +3,5 @@
 hugo_version: "0.75.1"
 hugo_tar_gz: "hugo_extended_{{hugo_version}}_Linux-64bit.tar.gz"
 hugo_download_location: "/usr/share/{{hugo_tar_gz}}"
+book_text_file: "/home/{{admin_user}}/fest2020frontEnd/content/post/{{ book_title |replace(' ','_')| lower()}}.md"
+book_image_file: "/home/{{admin_user}}/fest2020frontEnd/static/images/{{ book_title |replace(' ','_')| lower()}}.jpg"
